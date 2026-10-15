@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Catpedia</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#7cd0ff}a:hover{color:#bfe8ff}
+.root{font-family:'Fredoka','Baloo 2','Arial Rounded MT Bold',system-ui,sans-serif;font-weight:700}
+.root button{font:inherit;border:0;padding:0;margin:0;background:none;color:inherit;cursor:pointer}
+.ol{color:#ffffff;-webkit-text-stroke:var(--sw,8px) #12131a;paint-order:stroke fill;text-shadow:0 var(--sd,3px) 0 #12131a;letter-spacing:.5px;line-height:1}
+.gloss{position:relative}
+.gloss::after{content:"";position:absolute;left:6px;right:6px;top:3px;height:40%;border-radius:12px 12px 6px 6px;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,.08));pointer-events:none;z-index:0}
+.gloss > .lbl{position:relative;z-index:1}
+.press{transition:transform .12s ease}
+.press:hover{transform:translateY(-2px)}
+.press:active{transform:translateY(3px)}
+.card{transition:transform .15s ease}
+.card:hover{transform:translateY(-4px)}
+.card:focus-visible,.press:focus-visible{outline:4px solid #ffe36a;outline-offset:3px}
+.grid-scroll::-webkit-scrollbar{width:8px}
+.grid-scroll::-webkit-scrollbar-track{background:#14151e;border-radius:8px}
+.grid-scroll::-webkit-scrollbar-thumb{background:#5b6075;border-radius:8px}
+.search::placeholder{color:#6b7083}
+.search:focus{outline:3px solid #7cd0ff;outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rays{background:repeating-conic-gradient(from 0deg,rgba(255,228,120,.55) 0deg 9deg,rgba(255,228,120,0) 9deg 22.5deg);-webkit-mask:radial-gradient(circle,#000 18%,transparent 68%);mask:radial-gradient(circle,#000 18%,transparent 68%)}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes twinkle{0%,100%{transform:scale(.55);opacity:.45}50%{transform:scale(1.1);opacity:1}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+@keyframes drift{from{background-position:0 0}to{background-position:220px 0}}
+@media (prefers-reduced-motion: no-preference){
+.motion .rays{animation:spin 24s linear infinite}
+.motion .tw{animation:twinkle 1.8s ease-in-out infinite}
+.motion .tw2{animation:twinkle 1.8s ease-in-out .6s infinite}
+.motion .tw3{animation:twinkle 1.8s ease-in-out 1.2s infinite}
+.motion .bob{animation:bob 2.6s ease-in-out infinite}
+.motion .pulse{animation:pulse 1.6s ease-in-out infinite}
+.motion .stripes{animation:drift 6s linear infinite}
+}
+</style>
+</helmet>
+<div class="root {{motionClass}}" style="position: relative; width: 1920px; height: 1080px; overflow: hidden; background: linear-gradient(180deg, #8fd4ff 0%, #c4e8ff 20%, #f7d692 40%, #f2bd66 100%)">
+
+<div aria-hidden="true" style="position: absolute; left: -160px; top: 520px; width: 760px; height: 520px; border-radius: 50%; background: #8fd65a; filter: blur(70px); opacity: 0.55"></div>
+<div aria-hidden="true" style="position: absolute; right: -120px; top: 300px; width: 700px; height: 600px; border-radius: 50%; background: #e2963a; filter: blur(80px); opacity: 0.6"></div>
+<div aria-hidden="true" style="position: absolute; left: 380px; top: -120px; width: 900px; height: 260px; border-radius: 50%; background: #ffffff; filter: blur(70px); opacity: 0.6"></div>
+<div aria-hidden="true" style="position: absolute; left: 700px; bottom: -160px; width: 800px; height: 300px; border-radius: 50%; background: #f7c46e; filter: blur(60px); opacity: 0.8"></div>
+
+<section aria-label="Catpedia" style="position: absolute; left: 260px; top: 26px; width: 1400px; height: 950px; box-sizing: border-box; border: 6px solid #12131a; border-radius: 30px; background: linear-gradient(180deg, #2e3142, #262838); box-shadow: 0 10px 0 rgba(10, 10, 20, 0.45), inset 0 0 0 3px rgba(255, 255, 255, 0.06)">
+
+<header style="position: relative; height: 118px; border-radius: 24px 24px 0 0; overflow: hidden; background: linear-gradient(180deg, #9a48ea 0%, #7b2cbf 55%, #6a22aa 100%); border-bottom: 5px solid #12131a; display: flex; align-items: center; padding: 0 22px 0 30px; box-sizing: border-box">
+<div class="stripes" aria-hidden="true" style="position: absolute; left: 36%; right: 0; top: 0; bottom: 0; background: repeating-linear-gradient(120deg, #f6b52b 0px, #f6b52b 46px, rgba(0, 0, 0, 0) 46px, rgba(0, 0, 0, 0) 110px); opacity: 0.95"></div>
+<div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 0; height: 40%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0))"></div>
+<h1 class="ol" style="position: relative; margin: 0; font-size: 80px; --sw: 14px; --sd: 5px; flex-grow: 1">CATPEDIA</h1>
+<button class="press gloss" type="button" aria-label="Close" style="position: relative; width: 86px; height: 86px; border: 4px solid #12131a; border-radius: 16px; background: linear-gradient(180deg, #ff6767, #d91f2c); box-shadow: inset 0 -7px 0 #9c1420; display: flex; align-items: center; justify-content: center">
+<svg class="lbl" viewBox="0 0 48 48" width="52" height="52" aria-hidden="true"><path d="M12 12 L36 36 M36 12 L12 36" stroke="#12131a" stroke-width="15" stroke-linecap="round"></path><path d="M12 12 L36 36 M36 12 L12 36" stroke="#ffffff" stroke-width="8" stroke-linecap="round"></path></svg>
+</button>
+</header>
+
+<div style="display: flex; gap: 18px; padding: 18px 20px 20px; height: 820px; box-sizing: border-box">
+
+<nav aria-label="Categories" style="width: 290px; flex-shrink: 0; box-sizing: border-box; background: #1f2130; border: 4px solid #12131a; border-radius: 22px; box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3); padding: 18px 14px; display: flex; flex-direction: column; gap: 18px">
+<h2 class="ol" style="margin: 0; text-align: center; font-size: 38px; --sw: 8px">CATEGORIES</h2>
+<div style="display: flex; flex-direction: column; gap: 16px; margin-left: -14px">
+<sc-for list="{{categories}}" as="k" hint-placeholder-count="7">
+<button class="press gloss" type="button" onClick="{{k.pick}}" aria-pressed="{{k.pressed}}" style="position: relative; height: 78px; width: 100%; box-sizing: border-box; border: 4px solid #12131a; border-radius: 18px; background: {{k.bg}}; box-shadow: {{k.shadow}}; display: flex; align-items: center; padding: 0 50px 0 46px">
+<svg viewBox="0 0 64 72" width="74" height="84" aria-hidden="true" style="position: absolute; left: -34px; top: -6px; z-index: 2">
+<path d="M18 42 L11 69 L21 63 L28 71 L32 48 Z" fill="{{k.ribbon}}" stroke="#12131a" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M46 42 L53 69 L43 63 L36 71 L32 48 Z" fill="{{k.ribbon}}" stroke="#12131a" stroke-width="3" stroke-linejoin="round"></path>
+<circle cx="32" cy="30" r="26" fill="{{k.ring}}" stroke="#12131a" stroke-width="3.5"></circle>
+<circle cx="32" cy="30" r="18" fill="{{k.inner}}" stroke="{{k.ringDark}}" stroke-width="2.5"></circle>
+<path d="M32 19 L34.7 26.3 L42.5 26.6 L36.4 31.4 L38.5 38.9 L32 34.6 L25.5 38.9 L27.6 31.4 L21.5 26.6 L29.3 26.3 Z" fill="{{k.icon}}" stroke="{{k.ringDark}}" stroke-width="1.5" stroke-linejoin="round" display="{{k.starD}}"></path>
+<path d="M21 37 L21 24 L26.5 29 L32 20.5 L37.5 29 L43 24 L43 37 Z" fill="{{k.icon}}" stroke="{{k.ringDark}}" stroke-width="1.5" stroke-linejoin="round" display="{{k.crownD}}"></path>
+<path d="M22 38 Q20 27 24 20.5 L28.5 26 Q32 24.5 35.5 26 L40 20.5 Q44 27 42 38 Q32 42.5 22 38 Z" fill="{{k.icon}}" stroke="{{k.ringDark}}" stroke-width="1.5" stroke-linejoin="round" display="{{k.catD}}"></path>
+<path d="M12 22 Q17 9 31 6" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.6"></path>
+</svg>
+<span class="ol lbl" style="flex-grow: 1; text-align: center; font-size: {{k.size}}; --sw: 8px; white-space: nowrap">{{k.label}}</span>
+<svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true" display="{{k.pawD}}" style="position: absolute; right: 12px; top: 50%; margin-top: -18px; z-index: 1">
+<ellipse cx="20" cy="27" rx="10" ry="8.5" fill="#ffa6bb" fill-opacity="0.9"></ellipse>
+<circle cx="8.5" cy="17" r="4.3" fill="#ffa6bb" fill-opacity="0.9"></circle>
+<circle cx="15.5" cy="10" r="4.5" fill="#ffa6bb" fill-opacity="0.9"></circle>
+<circle cx="24.5" cy="10" r="4.5" fill="#ffa6bb" fill-opacity="0.9"></circle>
+<circle cx="31.5" cy="17" r="4.3" fill="#ffa6bb" fill-opacity="0.9"></circle>
+</svg>
+</button>
+</sc-for>
+</div>
+</nav>
+
+<div style="width: 640px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; position: relative">
+<div style="flex-grow: 1; min-height: 0; box-sizing: border-box; background: #1f2130; border: 4px solid #12131a; border-radius: 22px; box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3); padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 14px">
+<h2 class="ol" style="margin: 0; font-size: 34px; --sw: 8px; white-space: nowrap">CATPEDIA (45/120)</h2>
+<div style="position: relative; width: 236px; height: 54px">
+<label class="sr" for="cat-search">Search cats</label>
+<input id="cat-search" class="search" type="search" value="{{query}}" onChange="{{onSearch}}" placeholder="" autocomplete="off" style="width: 100%; height: 100%; box-sizing: border-box; background: #14151e; border: 3px solid #0b0c12; border-radius: 16px; box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.45); color: #ffffff; font: 600 22px 'Fredoka', system-ui, sans-serif; padding: 0 48px 0 16px">
+<svg viewBox="0 0 44 44" width="30" height="30" aria-hidden="true" style="position: absolute; right: 12px; top: 12px; pointer-events: none"><circle cx="19" cy="19" r="11" fill="none" stroke="#7d8396" stroke-width="4.5"></circle><path d="M27.5 27.5 L37 37" stroke="#7d8396" stroke-width="5.5" stroke-linecap="round"></path></svg>
+</div>
+</div>
+
+<div class="grid-scroll" style="flex-grow: 1; min-height: 0; overflow-y: auto; padding: 6px 12px 10px 4px; margin: -6px -4px 0 0">
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}">
+<p class="ol" style="margin: 80px 0 0; text-align: center; font-size: 30px; --sw: 7px; color: #c3c7d4">No cats found</p>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; align-content: start">
+<sc-for list="{{cards}}" as="c" hint-placeholder-count="16">
+<button class="card" type="button" onClick="{{c.pick}}" aria-label="{{c.aria}}" aria-pressed="{{c.pressed}}" style="position: relative; height: 166px; box-sizing: border-box; padding: 4px; border-radius: 16px; background: {{c.border}}; box-shadow: {{c.ring}}">
+<div style="position: relative; width: 100%; height: 100%; border-radius: 12px; overflow: hidden; background: {{c.bg}}; box-shadow: inset 0 -5px 0 rgba(0, 0, 0, 0.14), inset 0 3px 0 rgba(255, 255, 255, 0.35)">
+<div style="position: absolute; left: 4px; right: 4px; top: 30px; bottom: 4px">
+<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true">
+<path d="M64 80 Q89 82 86 61 Q84 51 76 55" fill="none" stroke="{{c.ol}}" stroke-width="11" stroke-linecap="round"></path>
+<path d="M64 80 Q89 82 86 61 Q84 51 76 55" fill="none" stroke="{{c.tail}}" stroke-width="5.5" stroke-linecap="round"></path>
+<ellipse cx="50" cy="75" rx="21" ry="17" fill="{{c.body}}" stroke="{{c.ol}}" stroke-width="3"></ellipse>
+<ellipse cx="50" cy="79" rx="11" ry="10.5" fill="{{c.belly}}" display="{{c.bellyD}}"></ellipse>
+<g display="{{c.stripeD}}" stroke="{{c.dark}}" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M31 69 Q35 72 34 77"></path><path d="M69 69 Q65 72 66 77"></path></g>
+<g display="{{c.calicoD}}"><path d="M31.5 68 Q37 60 44 65 Q42 73 33.5 76 Z" fill="#f59b42"></path><path d="M57 63 Q66 61 68.5 69 Q63 72 58.5 68.5 Z" fill="#3a3433"></path></g>
+<g display="{{c.galaxyD}}" fill="#ffffff"><circle cx="36" cy="72" r="1.2"></circle><circle cx="64" cy="70" r="1.4"></circle><circle cx="60" cy="82" r="1"></circle><circle cx="38" cy="83" r="1" fill="#ffe36a"></circle></g>
+<g display="{{c.suitD}}"><rect x="41" y="68" width="18" height="12" rx="3" fill="#9ec9ff" stroke="{{c.ol}}" stroke-width="2"></rect><circle cx="46" cy="74" r="1.8" fill="#ff6b7d"></circle><circle cx="52" cy="74" r="1.8" fill="#ffd34d"></circle></g>
+<g display="{{c.scarfD}}"><path d="M32 55 Q50 63 68 55 L68 61.5 Q50 69.5 32 61.5 Z" fill="{{c.scarf}}" stroke="{{c.ol}}" stroke-width="2.4" stroke-linejoin="round"></path><path d="M59 62 L66 75 L57.5 73 Z" fill="{{c.scarf}}" stroke="{{c.ol}}" stroke-width="2.4" stroke-linejoin="round"></path></g>
+<ellipse cx="41" cy="90" rx="7" ry="4.5" fill="{{c.paw}}" stroke="{{c.ol}}" stroke-width="2.5"></ellipse>
+<ellipse cx="59" cy="90" rx="7" ry="4.5" fill="{{c.paw}}" stroke="{{c.ol}}" stroke-width="2.5"></ellipse>
+<path d="M27 32 Q25.5 15 30.5 9 Q40 13.5 46 21 Z" fill="{{c.fur}}" stroke="{{c.ol}}" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M73 32 Q74.5 15 69.5 9 Q60 13.5 54 21 Z" fill="{{c.earR}}" stroke="{{c.ol}}" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M31 25 Q31 17.5 32.8 14 Q38 17 41 21 Z" fill="{{c.ear}}" display="{{c.featD}}"></path>
+<path d="M69 25 Q69 17.5 67.2 14 Q62 17 59 21 Z" fill="{{c.ear}}" display="{{c.featD}}"></path>
+<ellipse cx="50" cy="38" rx="26" ry="21" fill="{{c.fur}}"></ellipse>
+<g display="{{c.calicoD}}"><path d="M25 36 Q26 21 41 18.5 Q44 28 36 34 Q30 37.5 25 36 Z" fill="#f59b42"></path><path d="M57 18 Q71 20 75.5 33 Q67 34 61.5 27 Z" fill="#3a3433"></path></g>
+<g display="{{c.stripeD}}" stroke="{{c.dark}}" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M50 18.5 L50 25"></path><path d="M44 19.5 L45 24"></path><path d="M56 19.5 L55 24"></path><path d="M24.5 38 L30.5 39"></path><path d="M75.5 38 L69.5 39"></path></g>
+<g display="{{c.galaxyD}}"><circle cx="35" cy="27" r="1.3" fill="#ffffff"></circle><circle cx="63" cy="24" r="1.1" fill="#ffffff"></circle><circle cx="70" cy="34" r="1.4" fill="#ffe36a"></circle><circle cx="30" cy="40" r="1" fill="#ffffff"></circle><circle cx="54" cy="21" r="0.9" fill="#ffe36a"></circle><ellipse cx="62" cy="30" rx="6" ry="3" fill="#6a5bd8" opacity="0.6"></ellipse></g>
+<g display="{{c.ninjaD}}"><rect x="26" y="30.5" width="48" height="14" rx="7" fill="#f3d9b5" stroke="{{c.ol}}" stroke-width="2.2"></rect><path d="M74 36 L85 31 L83 40 Z" fill="{{c.scarf}}" stroke="{{c.ol}}" stroke-width="2" stroke-linejoin="round"></path></g>
+<ellipse cx="50" cy="38" rx="26" ry="21" fill="none" stroke="{{c.ol}}" stroke-width="3"></ellipse>
+<g display="{{c.muzzleD}}"><ellipse cx="44.5" cy="46.5" rx="6.5" ry="5" fill="{{c.belly}}"></ellipse><ellipse cx="55.5" cy="46.5" rx="6.5" ry="5" fill="{{c.belly}}"></ellipse></g>
+<g display="{{c.featD}}">
+<ellipse cx="40" cy="38" rx="4.4" ry="5.3" fill="{{c.eye}}"></ellipse><circle cx="41.6" cy="35.9" r="1.8" fill="#ffffff"></circle><circle cx="38.8" cy="40.2" r="0.9" fill="#ffffff"></circle>
+<ellipse cx="60" cy="38" rx="4.4" ry="5.3" fill="{{c.eye}}"></ellipse><circle cx="61.6" cy="35.9" r="1.8" fill="#ffffff"></circle><circle cx="58.8" cy="40.2" r="0.9" fill="#ffffff"></circle>
+<path d="M47.5 43.3 L52.5 43.3 L50 45.8 Z" fill="#ff8fa3" stroke="{{c.ol}}" stroke-width="1" stroke-linejoin="round"></path>
+<path d="M45.5 47.3 Q47.8 50.2 50 47.6 Q52.2 50.2 54.5 47.3" fill="none" stroke="{{c.ol}}" stroke-width="1.6" stroke-linecap="round"></path>
+<ellipse cx="32" cy="46" rx="4" ry="2.4" fill="#ff8fa3" opacity="0.6"></ellipse><ellipse cx="68" cy="46" rx="4" ry="2.4" fill="#ff8fa3" opacity="0.6"></ellipse>
+</g>
+<g display="{{c.helmetD}}"><circle cx="50" cy="38" r="35.5" fill="none" stroke="{{c.ol}}" stroke-width="2"></circle><circle cx="50" cy="38" r="33" fill="#bfe3ff" fill-opacity="0.25" stroke="#e9eef6" stroke-width="5"></circle><path d="M27 25 Q33 12 47 9" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.9"></path></g>
+</svg>
+</div>
+<sc-if value="{{c.labelShow}}" hint-placeholder-val="{{ true }}">
+<span class="ol" style="position: absolute; top: 7px; left: 0; right: 0; text-align: center; font-size: 22px; --sw: 6px; --sd: 2px; color: {{c.labelColor}}">{{c.label}}</span>
+</sc-if>
+<sc-if value="{{c.locked}}" hint-placeholder-val="{{ false }}">
+<span class="ol" aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 64px; text-align: center; font-size: 54px; color: #8e93a1; --sw: 8px">?</span>
+</sc-if>
+<sc-if value="{{c.lvShow}}" hint-placeholder-val="{{ false }}">
+<span style="position: absolute; left: 6px; bottom: 6px; background: rgba(18, 19, 26, 0.85); color: #ffffff; font-size: 17px; line-height: 1; padding: 4px 8px 5px; border-radius: 8px">{{c.lv}}</span>
+</sc-if>
+<sc-if value="{{c.chk}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 34" width="44" height="38" aria-hidden="true" style="position: absolute; right: 2px; bottom: 2px"><path d="M6 18 L15 27 L34 7" fill="none" stroke="#12131a" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"></path><path d="M6 18 L15 27 L34 7" fill="none" stroke="#3ddc6a" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+</sc-if>
+<sc-if value="{{c.lockB}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 30 34" width="28" height="32" aria-hidden="true" style="position: absolute; right: 7px; bottom: 7px"><path d="M8 15 V10 a7 7 0 0 1 14 0 V15" fill="none" stroke="#12131a" stroke-width="7"></path><path d="M8 15 V10 a7 7 0 0 1 14 0 V15" fill="none" stroke="#c3c8d1" stroke-width="3.2"></path><rect x="3" y="14" width="24" height="17" rx="4" fill="#9ca3af" stroke="#12131a" stroke-width="3"></rect><circle cx="15" cy="21" r="2.4" fill="#12131a"></circle><rect x="14" y="21" width="2" height="5" fill="#12131a"></rect></svg>
+</sc-if>
+<sc-if value="{{c.pawB}}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 40 40" width="30" height="30" aria-hidden="true" style="position: absolute; right: 7px; bottom: 7px"><ellipse cx="20" cy="27" rx="10" ry="8.5" fill="#ff8fab"></ellipse><circle cx="8.5" cy="17" r="4.3" fill="#ff8fab"></circle><circle cx="15.5" cy="10" r="4.5" fill="#ff8fab"></circle><circle cx="24.5" cy="10" r="4.5" fill="#ff8fab"></circle><circle cx="31.5" cy="17" r="4.3" fill="#ff8fab"></circle></svg>
+</sc-if>
+</div>
+</button>
+</sc-for>
+</div>
+</div>
+</div>
+
+<div style="height: 86px; display: flex; gap: 14px">
+<div style="flex-grow: 1; box-sizing: border-box; background: #15161f; border: 4px solid #0b0c12; border-radius: 20px; box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center">
+<p class="ol" style="margin: 0; font-size: 31px; --sw: 7px; white-space: nowrap">TOTAL DISCOVERED: 45 / 120</p>
+</div>
+<button class="press gloss" type="button" onClick="{{onToggle}}" aria-pressed="{{togglePressed}}" style="width: 216px; flex-shrink: 0; box-sizing: border-box; border: 4px solid #12131a; border-radius: 18px; background: linear-gradient(180deg, #4cb4ff, #1f6fd6); box-shadow: inset 0 -6px 0 #154f9e; display: flex; align-items: center; gap: 8px; padding: 0 12px 0 14px">
+<span class="ol lbl" style="font-size: 21px; --sw: 6px; text-align: center; line-height: 1.05">SHOW<br>UNLOCKED</span>
+<span class="lbl" aria-hidden="true" style="position: relative; width: 66px; height: 38px; flex-shrink: 0; border-radius: 19px; border: 3px solid #12131a; box-sizing: border-box; background: {{trackBg}}; box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.35)">
+<span style="position: absolute; top: 2px; left: {{knobLeft}}; width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(180deg, #e6f6ff, #9fd8ff); border: 2px solid #12131a; box-sizing: border-box; transition: left 0.15s"></span>
+</span>
+</button>
+</div>
+
+<button class="press gloss pulse" type="button" style="position: absolute; left: 408px; bottom: -96px; width: 248px; height: 84px; box-sizing: border-box; border: 4px solid #12131a; border-radius: 20px; background: linear-gradient(180deg, #7ae86e, #22b04a); box-shadow: inset 0 -7px 0 #157a32, 0 5px 0 rgba(10, 10, 20, 0.45); display: flex; align-items: center; justify-content: center; padding-right: 28px">
+<span class="ol lbl" style="font-size: 25px; --sw: 7px; text-align: center; line-height: 1.05">CLAIM<br>REWARDS</span>
+<svg class="lbl" viewBox="0 0 54 50" width="58" height="54" aria-hidden="true" style="position: absolute; right: -16px; top: 12px">
+<path d="M20 8 L17 20 L10 20 Z" fill="#ffd34d"></path>
+<path d="M20 8 L34 8 L37 20 L17 20 Z" fill="#7dff8a"></path>
+<path d="M34 8 L44 20 L37 20 Z" fill="#ffb347"></path>
+<path d="M10 20 L17 20 L27 44 Z" fill="#ff6b9a"></path>
+<path d="M17 20 L37 20 L27 44 Z" fill="#5ad1ff"></path>
+<path d="M37 20 L44 20 L27 44 Z" fill="#9b6bff"></path>
+<path d="M10 20 L44 20 M20 8 L17 20 L27 44 L37 20 L34 8" fill="none" stroke="#12131a" stroke-width="1.8" stroke-linejoin="round"></path>
+<path d="M10 20 L20 8 L34 8 L44 20 L27 44 Z" fill="none" stroke="#12131a" stroke-width="3.2" stroke-linejoin="round"></path>
+<path d="M22 11 L31 11" stroke="#ffffff" stroke-width="2" stroke-linecap="round" opacity="0.8"></path>
+</svg>
+</button>
+</div>
+
+<aside aria-label="Cat details" style="width: 382px; flex-shrink: 0; box-sizing: border-box; background: #1e202e; border: 4px solid #12131a; border-radius: 22px; box-shadow: inset 0 4px 0 rgba(0, 0, 0, 0.3); padding: 16px 16px 18px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<h2 class="ol" style="margin: 4px 0 0; font-size: 38px; --sw: 8px">CAT DETAILS</h2>
+
+<div style="position: relative; width: 100%; height: 262px; flex-shrink: 0">
+<div class="rays" aria-hidden="true" style="position: absolute; left: 50%; top: 46%; width: 360px; height: 360px; border-radius: 50%; transform: translate(-50%, -50%)"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; top: 52%; width: 250px; height: 250px; margin: -125px 0 0 -125px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 244, 190, 0.85) 0%, rgba(255, 214, 90, 0.35) 40%, rgba(255, 214, 90, 0) 70%)"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; bottom: 6px; width: 200px; height: 34px; margin-left: -100px; box-sizing: border-box; border: 3px solid #12131a; border-top: 0; border-radius: 0 0 100px 100px / 0 0 30px 30px; background: linear-gradient(180deg, #f2b632, #c5820f)"></div>
+<div aria-hidden="true" style="position: absolute; left: 50%; bottom: 22px; width: 200px; height: 52px; margin-left: -100px; box-sizing: border-box; border: 3px solid #12131a; border-radius: 50%; background: radial-gradient(ellipse at 50% 40%, #ffffff 0%, #fff6c8 45%, #ffd85a 100%); box-shadow: 0 0 24px 8px rgba(255, 236, 150, 0.7)"></div>
+<div class="bob" style="position: absolute; left: 50%; bottom: 36px; width: 196px; height: 196px; margin-left: -98px">
+<svg viewBox="0 0 100 100" width="100%" height="100%" role="img" aria-label="{{sel.aria}}">
+<path d="M64 80 Q89 82 86 61 Q84 51 76 55" fill="none" stroke="{{sel.ol}}" stroke-width="11" stroke-linecap="round"></path>
+<path d="M64 80 Q89 82 86 61 Q84 51 76 55" fill="none" stroke="{{sel.tail}}" stroke-width="5.5" stroke-linecap="round"></path>
+<ellipse cx="50" cy="75" rx="21" ry="17" fill="{{sel.body}}" stroke="{{sel.ol}}" stroke-width="3"></ellipse>
+<ellipse cx="50" cy="79" rx="11" ry="10.5" fill="{{sel.belly}}" display="{{sel.bellyD}}"></ellipse>
+<g display="{{sel.stripeD}}" stroke="{{sel.dark}}" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M31 69 Q35 72 34 77"></path><path d="M69 69 Q65 72 66 77"></path></g>
+<g display="{{sel.calicoD}}"><path d="M31.5 68 Q37 60 44 65 Q42 73 33.5 76 Z" fill="#f59b42"></path><path d="M57 63 Q66 61 68.5 69 Q63 72 58.5 68.5 Z" fill="#3a3433"></path></g>
+<g display="{{sel.galaxyD}}" fill="#ffffff"><circle cx="36" cy="72" r="1.2"></circle><circle cx="64" cy="70" r="1.4"></circle><circle cx="60" cy="82" r="1"></circle><circle cx="38" cy="83" r="1" fill="#ffe36a"></circle></g>
+<g display="{{sel.suitD}}"><rect x="41" y="68" width="18" height="12" rx="3" fill="#9ec9ff" stroke="{{sel.ol}}" stroke-width="2"></rect><circle cx="46" cy="74" r="1.8" fill="#ff6b7d"></circle><circle cx="52" cy="74" r="1.8" fill="#ffd34d"></circle></g>
+<g display="{{sel.scarfD}}"><path d="M32 55 Q50 63 68 55 L68 61.5 Q50 69.5 32 61.5 Z" fill="{{sel.scarf}}" stroke="{{sel.ol}}" stroke-width="2.4" stroke-linejoin="round"></path><path d="M59 62 L66 75 L57.5 73 Z" fill="{{sel.scarf}}" stroke="{{sel.ol}}" stroke-width="2.4" stroke-linejoin="round"></path></g>
+<ellipse cx="41" cy="90" rx="7" ry="4.5" fill="{{sel.paw}}" stroke="{{sel.ol}}" stroke-width="2.5"></ellipse>
+<ellipse cx="59" cy="90" rx="7" ry="4.5" fill="{{sel.paw}}" stroke="{{sel.ol}}" stroke-width="2.5"></ellipse>
+<path d="M27 32 Q25.5 15 30.5 9 Q40 13.5 46 21 Z" fill="{{sel.fur}}" stroke="{{sel.ol}}" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M73 32 Q74.5 15 69.5 9 Q60 13.5 54 21 Z" fill="{{sel.earR}}" stroke="{{sel.ol}}" stroke-width="3" stroke-linejoin="round"></path>
+<path d="M31 25 Q31 17.5 32.8 14 Q38 17 41 21 Z" fill="{{sel.ear}}" display="{{sel.featD}}"></path>
+<path d="M69 25 Q69 17.5 67.2 14 Q62 17 59 21 Z" fill="{{sel.ear}}" display="{{sel.featD}}"></path>
+<ellipse cx="50" cy="38" rx="26" ry="21" fill="{{sel.fur}}"></ellipse>
+<g display="{{sel.calicoD}}"><path d="M25 36 Q26 21 41 18.5 Q44 28 36 34 Q30 37.5 25 36 Z" fill="#f59b42"></path><path d="M57 18 Q71 20 75.5 33 Q67 34 61.5 27 Z" fill="#3a3433"></path></g>
+<g display="{{sel.stripeD}}" stroke="{{sel.dark}}" stroke-width="2.6" stroke-linecap="round" fill="none"><path d="M50 18.5 L50 25"></path><path d="M44 19.5 L45 24"></path><path d="M56 19.5 L55 24"></path><path d="M24.5 38 L30.5 39"></path><path d="M75.5 38 L69.5 39"></path></g>
+<g display="{{sel.galaxyD}}"><circle cx="35" cy="27" r="1.3" fill="#ffffff"></circle><circle cx="63" cy="24" r="1.1" fill="#ffffff"></circle><circle cx="70" cy="34" r="1.4" fill="#ffe36a"></circle><circle cx="30" cy="40" r="1" fill="#ffffff"></circle><circle cx="54" cy="21" r="0.9" fill="#ffe36a"></circle><ellipse cx="62" cy="30" rx="6" ry="3" fill="#6a5bd8" opacity="0.6"></ellipse></g>
+<g display="{{sel.ninjaD}}"><rect x="26" y="30.5" width="48" height="14" rx="7" fill="#f3d9b5" stroke="{{sel.ol}}" stroke-width="2.2"></rect><path d="M74 36 L85 31 L83 40 Z" fill="{{sel.scarf}}" stroke="{{sel.ol}}" stroke-width="2" stroke-linejoin="round"></path></g>
+<ellipse cx="50" cy="38" rx="26" ry="21" fill="none" stroke="{{sel.ol}}" stroke-width="3"></ellipse>
+<g display="{{sel.muzzleD}}"><ellipse cx="44.5" cy="46.5" rx="6.5" ry="5" fill="{{sel.belly}}"></ellipse><ellipse cx="55.5" cy="46.5" rx="6.5" ry="5" fill="{{sel.belly}}"></ellipse></g>
+<g display="{{sel.featD}}">
+<ellipse cx="40" cy="38" rx="4.4" ry="5.3" fill="{{sel.eye}}"></ellipse><circle cx="41.6" cy="35.9" r="1.8" fill="#ffffff"></circle><circle cx="38.8" cy="40.2" r="0.9" fill="#ffffff"></circle>
+<ellipse cx="60" cy="38" rx="4.4" ry="5.3" fill="{{sel.eye}}"></ellipse><circle cx="61.6" cy="35.9" r="1.8" fill="#ffffff"></circle><circle cx="58.8" cy="40.2" r="0.9" fill="#ffffff"></circle>
+<path d="M47.5 43.3 L52.5 43.3 L50 45.8 Z" fill="#ff8fa3" stroke="{{sel.ol}}" stroke-width="1" stroke-linejoin="round"></path>
+<path d="M45.5 47.3 Q47.8 50.2 50 47.6 Q52.2 50.2 54.5 47.3" fill="none" stroke="{{sel.ol}}" stroke-width="1.6" stroke-linecap="round"></path>
+<ellipse cx="32" cy="46" rx="4" ry="2.4" fill="#ff8fa3" opacity="0.6"></ellipse><ellipse cx="68" cy="46" rx="4" ry="2.4" fill="#ff8fa3" opacity="0.6"></ellipse>
+</g>
+<g display="{{sel.helmetD}}"><circle cx="50" cy="38" r="35.5" fill="none" stroke="{{sel.ol}}" stroke-width="2"></circle><circle cx="50" cy="38" r="33" fill="#bfe3ff" fill-opacity="0.25" stroke="#e9eef6" stroke-width="5"></circle><path d="M27 25 Q33 12 47 9" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity="0.9"></path></g>
+</svg>
+<sc-if value="{{sel.locked}}" hint-placeholder-val="{{ false }}">
+<span class="ol" aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 72px; color: #8e93a1; --sw: 10px">?</span>
+</sc-if>
+</div>
+<svg class="tw" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" style="position: absolute; left: 62px; top: 112px"><path d="M12 0 Q13.6 10.4 24 12 Q13.6 13.6 12 24 Q10.4 13.6 0 12 Q10.4 10.4 12 0 Z" fill="#ffe36a"></path></svg>
+<svg class="tw2" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="position: absolute; left: 116px; top: 22px"><path d="M12 0 Q13.6 10.4 24 12 Q13.6 13.6 12 24 Q10.4 13.6 0 12 Q10.4 10.4 12 0 Z" fill="#fff4a8"></path></svg>
+<svg class="tw3" viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" style="position: absolute; right: 44px; top: 50px"><path d="M12 0 Q13.6 10.4 24 12 Q13.6 13.6 12 24 Q10.4 13.6 0 12 Q10.4 10.4 12 0 Z" fill="#ffe36a"></path></svg>
+<svg class="tw" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" style="position: absolute; right: 26px; top: 150px"><path d="M12 0 Q13.6 10.4 24 12 Q13.6 13.6 12 24 Q10.4 13.6 0 12 Q10.4 10.4 12 0 Z" fill="#fff4a8"></path></svg>
+<svg class="tw2" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="position: absolute; left: 30px; top: 180px"><path d="M12 0 Q13.6 10.4 24 12 Q13.6 13.6 12 24 Q10.4 13.6 0 12 Q10.4 10.4 12 0 Z" fill="#ffe36a"></path></svg>
+
+<div style="position: absolute; left: -4px; top: 4px; width: 96px; height: 96px">
+<svg viewBox="0 0 100 100" width="96" height="96" aria-hidden="true">
+<defs>
+<linearGradient id="rb-mythic" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5d8f"></stop><stop offset="0.22" stop-color="#ffb13b"></stop><stop offset="0.42" stop-color="#ffe85a"></stop><stop offset="0.6" stop-color="#5be08a"></stop><stop offset="0.8" stop-color="#4cc3ff"></stop><stop offset="1" stop-color="#b16bff"></stop></linearGradient>
+<linearGradient id="rb-legendary" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd25a"></stop><stop offset="1" stop-color="#ef8a12"></stop></linearGradient>
+<linearGradient id="rb-epic" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d49bff"></stop><stop offset="1" stop-color="#8b3fd9"></stop></linearGradient>
+<linearGradient id="rb-rare" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd4ff"></stop><stop offset="1" stop-color="#1d7fd6"></stop></linearGradient>
+<linearGradient id="rb-common" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8eaee"></stop><stop offset="1" stop-color="#8b919c"></stop></linearGradient>
+<linearGradient id="rb-secret" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8576ff"></stop><stop offset="1" stop-color="#2f2590"></stop></linearGradient>
+</defs>
+<polygon points="{{rosettePts}}" fill="{{sel.rosetteFill}}" stroke="#12131a" stroke-width="3.5" stroke-linejoin="round"></polygon>
+<circle cx="50" cy="50" r="30" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.65"></circle>
+</svg>
+<span class="ol" style="position: absolute; left: 0; right: 0; top: 50%; margin-top: -9px; text-align: center; font-size: {{sel.rosetteSize}}; --sw: 5px; --sd: 2px">{{sel.rarityUp}}</span>
+</div>
+</div>
+
+<h3 class="ol" style="margin: 2px 0 0; font-size: {{sel.nameSize}}; --sw: 9px; --sd: 4px; white-space: nowrap; text-align: center">{{sel.nameUp}}</h3>
+<p class="ol" style="margin: 6px 0 0; font-size: 28px; --sw: 7px; white-space: nowrap">STATUS: <span style="color: {{sel.statusColor}}">{{sel.status}}</span></p>
+<p class="ol" style="margin: 8px 0 0; font-size: 23px; --sw: 6px; --sd: 2px; line-height: 1.22; text-align: center; text-wrap: pretty">{{sel.desc}}</p>
+<div style="margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 4px">
+<p class="ol" style="margin: 0; font-size: 23px; --sw: 6px; --sd: 2px; color: #fbbf24">Collection Bonus:</p>
+<p class="ol" style="margin: 0; font-size: 23px; --sw: 6px; --sd: 2px; color: #4ade80">{{sel.bonus}}</p>
+<p class="ol" style="margin: 0; font-size: 22px; --sw: 6px; --sd: 2px; color: #f1e6b8">{{sel.bonusNote}}</p>
+</div>
+
+<div style="margin-top: auto; width: 100%; display: flex; flex-direction: column; gap: 10px">
+<button class="press gloss" type="button" style="height: 64px; box-sizing: border-box; border: 4px solid #12131a; border-radius: 16px; background: linear-gradient(180deg, #ffd84a, #f0a414); box-shadow: inset 0 -6px 0 #b8740a; display: flex; align-items: center; justify-content: center">
+<span class="ol lbl" style="font-size: 25px; --sw: 7px; white-space: nowrap">PREVIEW ANIMATIONS</span>
+</button>
+<div style="display: flex; gap: 12px">
+<button class="press gloss" type="button" style="flex: 1 1 0; height: 58px; box-sizing: border-box; border: 4px solid #12131a; border-radius: 16px; background: linear-gradient(180deg, #4cb4ff, #1f6fd6); box-shadow: inset 0 -6px 0 #154f9e; display: flex; align-items: center; justify-content: center">
+<span class="ol lbl" style="font-size: 26px; --sw: 7px">LORE</span>
+</button>
+<button class="press gloss" type="button" style="flex: 1 1 0; height: 58px; box-sizing: border-box; border: 4px solid #12131a; border-radius: 16px; background: linear-gradient(180deg, #4cb4ff, #1f6fd6); box-shadow: inset 0 -6px 0 #154f9e; display: flex; align-items: center; justify-content: center">
+<span class="ol lbl" style="font-size: 26px; --sw: 7px">SOUNDS</span>
+</button>
+</div>
+</div>
+</aside>
+
+</div>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"motion":{"editor":"boolean","default":true},"$preview":{"width":1920,"height":1080}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const s = this.state || {};
+    const active = s.cat || 'all';
+    const q = (s.q || '').trim().toLowerCase();
+    const showLocked = s.showLocked !== false;
+    const selId = s.sel || 'astro';
+    const motion = this.props.motion ?? true;
+
+    const SIL = '#0f1016';
+    const OL = '#231a17';
+    const RAR = { common: 'Common', rare: 'Rare', epic: 'Epic', legendary: 'Legendary', mythic: 'Mythic', secret: 'Secret' };
+
+    const PAL = {
+      tabby: { fur: '#f7a043', dark: '#cf5f1e', belly: '#fff1dc', ear: '#ffb6c4', eye: '#2a1c16', stripes: 1, muzzle: 1 },
+      calico: { fur: '#fff7ec', dark: '#c9a07a', belly: '#ffffff', ear: '#ffb6c4', eye: '#2a1c16', calico: 1, earR: '#3a3433' },
+      ninja: { fur: '#30323e', dark: '#1d1e27', belly: '#30323e', ear: '#5c4e60', eye: '#2a1c16', ninja: 1, scarf: '#1d1e27', noBelly: 1 },
+      ninjaBlue: { fur: '#2b2d38', dark: '#1d1e27', belly: '#2b2d38', ear: '#5c4e60', eye: '#2a1c16', ninja: 1, scarf: '#2d4fb8', noBelly: 1 },
+      galaxy: { fur: '#283688', dark: '#18215a', belly: '#3b4cab', ear: '#8a7bd8', eye: '#140c2a', galaxy: 1, muzzle: 1 },
+      ginger: { fur: '#d98a45', dark: '#b2652a', belly: '#ffe6c8', ear: '#ffb6c4', eye: '#2a1c16', scarf: '#30b5a4', muzzle: 1 },
+      grey: { fur: '#aeb3bd', dark: '#80869a', belly: '#eef0f4', ear: '#ffb6c4', eye: '#2a1c16', stripes: 1, muzzle: 1 },
+      smoke: { fur: '#9ea3ae', dark: '#80869a', belly: '#e8eaef', ear: '#ffb6c4', eye: '#2a1c16', muzzle: 1 },
+      astro: { fur: '#e6b47e', dark: '#9a6236', belly: '#fff8ee', ear: '#ffb6c4', eye: '#2a1c16', helmet: 1, suit: 1, muzzle: 1, earR: '#8a5a3a' }
+    };
+
+    const LOOK = {
+      mythic: { border: 'linear-gradient(135deg, #ff4f8b, #ffae34, #ffe14d, #4ade80, #38bdf8, #a855f7)', bg: 'linear-gradient(135deg, #ffd6ea 0%, #fff0b8 30%, #cff8de 55%, #cbe6ff 78%, #e7d2ff 100%)', label: '#ff7d9c' },
+      gold: { border: 'linear-gradient(180deg, #ffd76a, #d4931a)', bg: 'linear-gradient(180deg, #fdeab5, #f0c25e)', label: '#ffd34d' },
+      epic: { border: 'linear-gradient(180deg, #dcb8ff, #9b5de5)', bg: 'linear-gradient(180deg, #d4b4f6, #a576e3)', label: '#f6a8ff' },
+      rare: { border: 'linear-gradient(180deg, #a5e3ff, #3a8be0)', bg: 'linear-gradient(180deg, #b5e7ff, #5aaef0)', label: '#7cd0ff' },
+      common: { border: 'linear-gradient(180deg, #eceef1, #9ca3af)', bg: 'linear-gradient(180deg, #e2e4e8, #b0b4bd)', label: '#eef0f3' },
+      locked: { border: 'linear-gradient(180deg, #6b7080, #484c58)', bg: 'linear-gradient(180deg, #4a4e59, #33363f)', label: '#9aa0ad' }
+    };
+
+    const INFO = {
+      stardust: ['Born under a shooting star, it leaves glitter wherever it naps!', '+1% Coins'],
+      calico: ['Rules the garden with a gentle paw and a very loud purr.', '+0.75% Coins'],
+      shadow: ['Moves without a sound. Nobody has ever seen it blink!', '+0.5% Coins'],
+      galaxy: ['Its fur holds a tiny night sky full of twinkling stars.', '+0.5% Coins'],
+      night: ['A ninja in training who still trips over its own tail.', '+0.5% Coins'],
+      cozy: ['Never leaves home without its favourite teal scarf.', '+0.5% Coins'],
+      whiskers: ['A friendly street cat. Hatch one to add it to your collection!', '+0.1% Coins'],
+      dusty: ['Loves sunbeams, cardboard boxes and long afternoon naps.', '+0.1% Coins'],
+      astro: ['A brave kitty who travels the cosmos in search of stardust!', '+1% Coins']
+    };
+
+    const L = (id, rarity) => ({ id, rarity, locked: true });
+    const raw = [
+      { id: 'stardust', name: 'Stardust Tabby', rarity: 'mythic', look: 'mythic', pal: 'tabby', badge: 'check' },
+      { id: 'calico', name: 'Calico Queen', rarity: 'legendary', look: 'gold', pal: 'calico', badge: 'check' },
+      { id: 'shadow', name: 'Shadow Ninja', rarity: 'epic', look: 'gold', pal: 'ninja', badge: 'check' },
+      { id: 'galaxy', name: 'Galaxy Kitty', rarity: 'epic', look: 'epic', pal: 'galaxy', badge: 'check' },
+      { id: 'night', name: 'Night Ninja', rarity: 'epic', look: 'epic', pal: 'ninjaBlue', badge: 'check', lv: 'Lv 1' },
+      { id: 'cozy', name: 'Cozy Ginger', rarity: 'epic', look: 'epic', pal: 'ginger', badge: 'check', lv: 'Lv 1' },
+      L('l1', 'rare'),
+      { id: 'whiskers', name: 'Grey Whiskers', rarity: 'common', look: 'common', pal: 'grey', badge: 'lock', lv: 'Lv 1', status: 'notowned' },
+      { id: 'dusty', name: 'Dusty', rarity: 'common', look: 'common', pal: 'smoke', badge: 'paw', lv: 'Lv 1' },
+      L('l2', 'rare'), L('l3', 'epic'), L('l4', 'legendary'),
+      L('l5', 'common'), L('l6', 'rare'), L('l7', 'mythic'), L('l8', 'secret'),
+      { id: 'astro', name: 'Astronaut Cat', rarity: 'mythic', look: 'mythic', pal: 'astro', badge: 'check' },
+      L('l9', 'secret'), L('l10', 'legendary'), L('l11', 'rare'),
+      L('l12', 'common'), L('l13', 'epic'), L('l14', 'secret'), L('l15', 'mythic')
+    ];
+
+    const on = (v) => (v ? 'inline' : 'none');
+    const build = (c) => {
+      const locked = !!c.locked;
+      const p = locked ? {} : PAL[c.pal];
+      const look = LOOK[locked ? 'locked' : c.look];
+      const col = (v) => (locked ? SIL : v);
+      const suitColor = '#eef2f8';
+      return {
+        id: c.id,
+        locked,
+        name: locked ? '???' : c.name,
+        rarity: c.rarity,
+        label: RAR[c.rarity],
+        labelShow: !locked,
+        labelColor: look.label,
+        border: look.border,
+        bg: look.bg,
+        aria: locked ? 'Undiscovered ' + RAR[c.rarity] + ' cat' : c.name + ', ' + RAR[c.rarity],
+        pressed: c.id === selId ? 'true' : 'false',
+        ring: c.id === selId ? '0 0 0 3px #12131a, 0 0 0 7px #ffffff, 0 5px 0 4px #0b0c12' : '0 0 0 3px #12131a, 0 5px 0 #0b0c12',
+        ol: locked ? SIL : OL,
+        fur: col(p.fur),
+        earR: col(p.earR || p.fur),
+        tail: col(p.suit ? p.fur : (p.calico ? '#f59b42' : p.fur)),
+        body: col(p.suit ? suitColor : p.fur),
+        paw: col(p.suit ? suitColor : (p.noBelly ? p.fur : p.belly)),
+        belly: col(p.belly),
+        dark: col(p.dark),
+        ear: col(p.ear),
+        eye: col(p.eye),
+        scarf: col(p.scarf || '#000000'),
+        bellyD: on(!locked && !p.noBelly && !p.suit),
+        featD: on(!locked),
+        muzzleD: on(!locked && p.muzzle),
+        stripeD: on(!locked && p.stripes),
+        calicoD: on(!locked && p.calico),
+        galaxyD: on(!locked && p.galaxy),
+        ninjaD: on(!locked && p.ninja),
+        scarfD: on(!locked && p.scarf && !p.ninja),
+        suitD: on(!locked && p.suit),
+        helmetD: on(!locked && p.helmet),
+        lv: c.lv || '',
+        lvShow: !!c.lv,
+        chk: c.badge === 'check',
+        lockB: locked || c.badge === 'lock',
+        pawB: c.badge === 'paw',
+        pick: () => this.setState({ sel: c.id })
+      };
+    };
+
+    const cards = raw
+      .filter((c) => active === 'all' || c.rarity === active)
+      .filter((c) => showLocked || !c.locked)
+      .filter((c) => !q || (!c.locked && c.name.toLowerCase().includes(q)) || RAR[c.rarity].toLowerCase().includes(q))
+      .map(build);
+
+    const selRaw = raw.find((c) => c.id === selId) || raw[0];
+    const sel = build(selRaw);
+    const info = selRaw.locked ? ['Keep hatching eggs to discover this cat!', '???'] : INFO[selRaw.id];
+    sel.nameUp = sel.name.toUpperCase();
+    sel.nameSize = sel.nameUp.length > 13 ? '34px' : '42px';
+    sel.rarityUp = RAR[selRaw.rarity].toUpperCase();
+    sel.rosetteSize = sel.rarityUp.length > 6 ? '13px' : '17px';
+    sel.rosetteFill = 'url(#rb-' + selRaw.rarity + ')';
+    sel.status = selRaw.locked ? 'UNDISCOVERED' : (selRaw.status === 'notowned' ? 'NOT OWNED' : 'DISCOVERED');
+    sel.statusColor = selRaw.locked ? '#f87171' : (selRaw.status === 'notowned' ? '#fb923c' : '#4ade80');
+    sel.desc = info[0];
+    sel.bonus = info[1];
+    sel.bonusNote = selRaw.locked ? '(Discover to unlock)' : (selRaw.status === 'notowned' ? '(Collect to activate)' : '(Permanently Active)');
+    sel.aria = selRaw.locked ? 'Undiscovered cat silhouette' : selRaw.name;
+
+    const pts = [];
+    for (let i = 0; i < 24; i++) {
+      const a = -Math.PI / 2 + (i * Math.PI) / 12;
+      const r = i % 2 ? 39 : 47;
+      pts.push((50 + r * Math.cos(a)).toFixed(1) + ',' + (50 + r * Math.sin(a)).toFixed(1));
+    }
+
+    const CAT = [
+      { key: 'all', label: 'ALL CATS', top: '#fcd34d', bot: '#e09a12', edge: '#a8650a', ring: '#ffd84a', ringDark: '#b97a0e', inner: '#f5b822', ribbon: '#d98b1a', icon: '#e3a114', icon_t: 'cat', paw: 0 },
+      { key: 'common', label: 'COMMON', top: '#c4c8d0', bot: '#7b818d', edge: '#555b66', ring: '#e3e6eb', ringDark: '#7b818d', inner: '#b7bcc6', ribbon: '#8b919c', icon: '#f4f5f7', icon_t: 'star', paw: 1 },
+      { key: 'rare', label: 'RARE', top: '#4fc3ff', bot: '#1d7fd6', edge: '#145a9e', ring: '#5cc4ff', ringDark: '#145a9e', inner: '#2b8be0', ribbon: '#1f6fc4', icon: '#c4ebff', icon_t: 'star', paw: 1 },
+      { key: 'epic', label: 'EPIC', top: '#c084fc', bot: '#8b3fd9', edge: '#5f2399', ring: '#c98bff', ringDark: '#5f2399', inner: '#9b4de8', ribbon: '#7a2fc7', icon: '#f1ddff', icon_t: 'crown', paw: 1 },
+      { key: 'legendary', label: 'LEGENDARY', top: '#ffb347', bot: '#f07a12', edge: '#b05208', ring: '#ffc23d', ringDark: '#b05208', inner: '#f39a1a', ribbon: '#e06a0e', icon: '#fff0b0', icon_t: 'crown', paw: 1 },
+      { key: 'mythic', label: 'MYTHIC', top: '#ff7b7b', bot: '#dc2b2b', edge: '#9c1818', ring: '#ff6b6b', ringDark: '#9c1818', inner: '#d92e2e', ribbon: '#b91c1c', icon: '#ffd6d6', icon_t: 'crown', paw: 1 },
+      { key: 'secret', label: 'SECRET', top: '#6a5cf0', bot: '#3a2f9e', edge: '#241c6e', ring: '#7c6cf5', ringDark: '#241c6e', inner: '#4433b8', ribbon: '#3b2c9c', icon: '#d6d0ff', icon_t: 'crown', paw: 0 }
+    ];
+    const categories = CAT.map((k) => {
+      const isOn = k.key === active;
+      return {
+        label: k.label,
+        size: k.label.length > 8 ? '27px' : '30px',
+        bg: 'linear-gradient(180deg, ' + k.top + ', ' + k.bot + ')',
+        shadow: 'inset 0 -7px 0 ' + k.edge + (isOn ? ', 0 0 0 3px #12131a, 0 0 0 7px #ffffff' : ''),
+        pressed: isOn ? 'true' : 'false',
+        ring: k.ring, ringDark: k.ringDark, inner: k.inner, ribbon: k.ribbon, icon: k.icon,
+        starD: on(k.icon_t === 'star'),
+        crownD: on(k.icon_t === 'crown'),
+        catD: on(k.icon_t === 'cat'),
+        pawD: on(k.paw),
+        pick: () => this.setState({ cat: k.key })
+      };
+    });
+
+    return {
+      motionClass: motion ? 'motion' : '',
+      categories,
+      cards,
+      empty: cards.length === 0,
+      sel,
+      rosettePts: pts.join(' '),
+      query: s.q || '',
+      onSearch: (e) => this.setState({ q: e.target.value }),
+      onToggle: () => this.setState({ showLocked: !showLocked }),
+      togglePressed: showLocked ? 'true' : 'false',
+      trackBg: showLocked ? '#0d3a85' : '#4a4e5a',
+      knobLeft: showLocked ? '31px' : '2px'
+    };
+  }
+}
+</script>
+</body>
+</html>

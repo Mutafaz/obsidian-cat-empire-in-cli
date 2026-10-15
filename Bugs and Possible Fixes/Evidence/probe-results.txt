@@ -1,0 +1,10 @@
+PASS: 80 Fight Map assertions (8 fights, team validation, locks, replay protection, atomic payouts, migration and disconnect).
+PASS: 987 offline core assertions (persistence, transactions, progression, onboarding, turns/types/PP/replay/rewards, realms, sync, presentation, owner panel, login rewards, Catpedia, PvP, Explore and Shop).
+AUDIT: QA-001 reproduced: commit=false, recovery A=1/B=0, UUID b held by both profiles
+AUDIT: QA-002 reproduced: failed recovery read returns unchanged profile and 0, no failure signal
+AUDIT: QA-003 reproduced through settle: 20 newer receipts evict old id; rejoin recovery resurrects merged-away UUID b
+AUDIT: QA-004 reproduced: recovery grants incoming cat even when outgoing UUID is absent
+AUDIT: QA-005 reproduced through CatService: owner-granted input becomes eligible level-2 leaderboard power
+AUDIT: QA-006 reproduced through server handlers: disabled expedition UI still permits start and payout
+AUDIT: QA-008 reproduced through GlobalLeaderboardService: current Team Power 0 leaves prior stored 999
+AUDIT: QA-019 reproduced: load accepts strength=10 and an unknown track, despite stricter upgrade definitions

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/ — graphify tree viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      margin: 20px 0 0 24px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #1e3a56;
+    }
+    .controls {
+      margin: 20px 0 15px 24px;
+    }
+    button {
+      margin-right: 10px;
+      padding: 8px 18px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease-in-out;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    button:active {
+      background: #004085;
+    }
+    #tree-container {
+      width: calc(100vw - 48px); /* Adjust for body margin/padding */
+      height: 85vh;
+      overflow: auto;
+      border-radius: 8px;
+      background: #fff;
+      margin-left: 24px;
+      margin-right: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: 1px solid #ddd;
+    }
+    svg {
+      background: #fff;
+      border-radius: 8px;
+      display: block; /* Important for D3 */
+    }
+    .node circle {
+      stroke-width: 2.5px;
+    }
+    .node text { /* Base style for the <text> container */
+      font: 13px 'Segoe UI', sans-serif;
+      paint-order: stroke fill; /* Ensures text is readable over lines */
+      stroke: #fff; /* White halo */
+      stroke-width: 3px; /* Halo thickness */
+      stroke-linejoin: round;
+      stroke-opacity: 0.85; /* Halo opacity */
+    }
+    .link {
+      fill: none;
+      stroke-opacity: 0.7;
+      stroke-width: 2px;
+    }
+  </style>
+</head>
+<body>
+  <h1>/ — Knowledge Graph</h1>
+  <div class="controls">
+    <button onclick="expandAll()">Expand All</button>
+    <button onclick="collapseAll()">Collapse All</button>
+    <button onclick="resetView()">Reset View</button>
+  </div>
+  <div id="tree-container">
+    <svg id="tree-svg" width="6000" height="8000"></svg>
+  </div>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    const initialJsonData = {"name":"/","total_count":248,"children":[{"name":"client","total_count":92,"children":[{"name":"Controllers","total_count":91,"children":[{"name":"AudioController.luau","total_count":11,"children":[{"name":"AudioController:IsMusicMuted()","total_count":1,"children":[]},{"name":"AudioController:IsSFXMuted()","total_count":1,"children":[]},{"name":"AudioController:OnInit()","total_count":1,"children":[]},{"name":"AudioController:OnStart()","total_count":1,"children":[]},{"name":"AudioController:PlayMusic()","total_count":1,"children":[]},{"name":"AudioController:PlaySFX()","total_count":1,"children":[]},{"name":"AudioController:SetMusicMuted()","total_count":1,"children":[]},{"name":"AudioController:SetRealmMusic()","total_count":1,"children":[]},{"name":"AudioController:SetSFXMuted()","total_count":1,"children":[]},{"name":"createSoundInstance()","total_count":1,"children":[]},{"name":"initSoundPool()","total_count":1,"children":[]}]},{"name":"CloudController.luau","total_count":1,"children":[{"name":"CloudController:OnStart()","total_count":1,"children":[]}]},{"name":"CombatController.luau","total_count":6,"children":[{"name":"act()","total_count":1,"children":[]},{"name":"button()","total_count":1,"children":[]},{"name":"clear()","total_count":1,"children":[]},{"name":"label()","total_count":1,"children":[]},{"name":"request()","total_count":1,"children":[]},{"name":"start()","total_count":1,"children":[]}]},{"name":"DataController.luau","total_count":8,"children":[{"name":"applyCurrencies()","total_count":1,"children":[]},{"name":"DataController:GetCurrency()","total_count":1,"children":[]},{"name":"DataController:GetData()","total_count":1,"children":[]},{"name":"DataController:OnInit()","total_count":1,"children":[]},{"name":"DataController:OnStart()","total_count":1,"children":[]},{"name":"handleCurrencies()","total_count":1,"children":[]},{"name":"handleDataSync()","total_count":1,"children":[]},{"name":"reportCurrencyChanges()","total_count":1,"children":[]}]},{"name":"ExpeditionController.luau","total_count":6,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"ExpeditionController:OnInit()","total_count":1,"children":[]},{"name":"ExpeditionController:OnStart()","total_count":1,"children":[]},{"name":"renderExpeditions()","total_count":1,"children":[]}]},{"name":"FXController.luau","total_count":10,"children":[{"name":"FXController:IsLowDetailMode()","total_count":1,"children":[]},{"name":"FXController:OnInit()","total_count":1,"children":[]},{"name":"FXController:OnStart()","total_count":1,"children":[]},{"name":"FXController:SetLowDetailMode()","total_count":1,"children":[]},{"name":"FXController:SpawnCelebrationBurst()","total_count":1,"children":[]},{"name":"FXController:SpawnFloatingText()","total_count":1,"children":[]},{"name":"FXController:SpawnFlyingCoinVFX()","total_count":1,"children":[]},{"name":"getOrCreateFXFolder()","total_count":1,"children":[]},{"name":"isManagedEffect()","total_count":1,"children":[]},{"name":"suppressEffect()","total_count":1,"children":[]}]},{"name":"GachaController.luau","total_count":6,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"GachaController:OnInit()","total_count":1,"children":[]},{"name":"GachaController:OnStart()","total_count":1,"children":[]},{"name":"playUnboxCeremony()","total_count":1,"children":[]}]},{"name":"HUDController.luau","total_count":5,"children":[{"name":"formatBalance()","total_count":1,"children":[]},{"name":"HUDController:OnInit()","total_count":1,"children":[]},{"name":"HUDController:OnStart()","total_count":1,"children":[]},{"name":"label()","total_count":1,"children":[]},{"name":"updateData()","total_count":1,"children":[]}]},{"name":"InventoryController.luau","total_count":4,"children":[{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"renderInventory()","total_count":1,"children":[]},{"name":"updateMergeButtonState()","total_count":1,"children":[]}]},{"name":"ParadeController.luau","total_count":7,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"ParadeController:OnInit()","total_count":1,"children":[]},{"name":"ParadeController:OnStart()","total_count":1,"children":[]},{"name":"startParadeBanner()","total_count":1,"children":[]},{"name":"stopParadeBanner()","total_count":1,"children":[]}]},{"name":"PetFollowController.luau","total_count":6,"children":[{"name":"createMiniCatModel()","total_count":1,"children":[]},{"name":"getOrCreatePetsFolder()","total_count":1,"children":[]},{"name":"PetFollowController:OnInit()","total_count":1,"children":[]},{"name":"PetFollowController:OnStart()","total_count":1,"children":[]},{"name":"removePetForPlayer()","total_count":1,"children":[]},{"name":"setPetForPlayer()","total_count":1,"children":[]}]},{"name":"PrestigeController.luau","total_count":6,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"PrestigeController:OnInit()","total_count":1,"children":[]},{"name":"PrestigeController:OnStart()","total_count":1,"children":[]},{"name":"updateModalDisplay()","total_count":1,"children":[]}]},{"name":"SettingsController.luau","total_count":2,"children":[{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]}]},{"name":"StationUIController.luau","total_count":3,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]}]},{"name":"TutorialController.luau","total_count":2,"children":[{"name":"label()","total_count":1,"children":[]},{"name":"update()","total_count":1,"children":[]}]},{"name":"WorldController.luau","total_count":8,"children":[{"name":"buildUI()","total_count":1,"children":[]},{"name":"createCorner()","total_count":1,"children":[]},{"name":"createStroke()","total_count":1,"children":[]},{"name":"performTravelTransition()","total_count":1,"children":[]},{"name":"WorldController:OnInit()","total_count":1,"children":[]},{"name":"WorldController:OnStart()","total_count":1,"children":[]},{"name":"WorldController:OpenModal()","total_count":1,"children":[]},{"name":"WorldController:RenderWorlds()","total_count":1,"children":[]}]}]},{"name":"init.client.luau","total_count":1,"children":[{"name":"bootstrap()","total_count":1,"children":[]}]}]},{"name":"server","total_count":95,"children":[{"name":"init.server.luau","total_count":1,"children":[{"name":"bootstrap()","total_count":1,"children":[]}]},{"name":"Modules","total_count":12,"children":[{"name":"ProfileStore.luau","total_count":8,"children":[{"name":"ProfileStore.clone()","total_count":1,"children":[]},{"name":"ProfileStore.createMemoryStore()","total_count":1,"children":[]},{"name":"ProfileStore.new()","total_count":1,"children":[]},{"name":"ProfileStore:isBusy()","total_count":1,"children":[]},{"name":"ProfileStore:isOwned()","total_count":1,"children":[]},{"name":"ProfileStore:load()","total_count":1,"children":[]},{"name":"ProfileStore:save()","total_count":1,"children":[]},{"name":"ProfileStore:update()","total_count":1,"children":[]}]},{"name":"RealmBuilder.luau","total_count":1,"children":[{"name":"RealmBuilder.build()","total_count":1,"children":[]}]},{"name":"RequestGuard.luau","total_count":3,"children":[{"name":"RequestGuard.allow()","total_count":1,"children":[]},{"name":"RequestGuard.forget()","total_count":1,"children":[]},{"name":"RequestGuard.isNear()","total_count":1,"children":[]}]}]},{"name":"Services","total_count":82,"children":[{"name":"CatService.luau","total_count":6,"children":[{"name":"CatService:AdoptCat()","total_count":1,"children":[]},{"name":"CatService:GiveStarterCat()","total_count":1,"children":[]},{"name":"CatService:OnInit()","total_count":1,"children":[]},{"name":"CatService:OnStart()","total_count":1,"children":[]},{"name":"handleAdoptRequest()","total_count":1,"children":[]},{"name":"handleMergeRequest()","total_count":1,"children":[]}]},{"name":"CombatService.luau","total_count":5,"children":[{"name":"CombatService:OnInit()","total_count":1,"children":[]},{"name":"CombatService:OnStart()","total_count":1,"children":[]},{"name":"getPlayerTopFighters()","total_count":1,"children":[]},{"name":"handleStartBattle()","total_count":1,"children":[]},{"name":"response()","total_count":1,"children":[]}]},{"name":"ExpeditionService.luau","total_count":4,"children":[{"name":"ExpeditionService:OnInit()","total_count":1,"children":[]},{"name":"ExpeditionService:OnStart()","total_count":1,"children":[]},{"name":"handleGetStatus()","total_count":1,"children":[]},{"name":"handleStartExpedition()","total_count":1,"children":[]}]},{"name":"LeaderboardService.luau","total_count":4,"children":[{"name":"LeaderboardService:OnInit()","total_count":1,"children":[]},{"name":"LeaderboardService:OnStart()","total_count":1,"children":[]},{"name":"spawnLeaderboardMonument()","total_count":1,"children":[]},{"name":"updateLeaderboard()","total_count":1,"children":[]}]},{"name":"MapService.luau","total_count":16,"children":[{"name":"buildColossalSphinxCatMonument()","total_count":1,"children":[]},{"name":"buildInlayRing()","total_count":1,"children":[]},{"name":"buildIslandBase()","total_count":1,"children":[]},{"name":"buildPlazaAdoptionPavilion()","total_count":1,"children":[]},{"name":"buildPlazaBenches()","total_count":1,"children":[]},{"name":"buildPlazaSpawnLocation()","total_count":1,"children":[]},{"name":"buildRadialPathways()","total_count":1,"children":[]},{"name":"createInlay()","total_count":1,"children":[]},{"name":"getOrCreateMapFolder()","total_count":1,"children":[]},{"name":"MapService:OnInit()","total_count":1,"children":[]},{"name":"MapService:OnStart()","total_count":1,"children":[]},{"name":"setupAtmosphere()","total_count":1,"children":[]},{"name":"spawnDatePalm()","total_count":1,"children":[]},{"name":"spawnDesertFoliage()","total_count":1,"children":[]},{"name":"spawnDistantPyramids()","total_count":1,"children":[]},{"name":"spawnSkyClouds()","total_count":1,"children":[]}]},{"name":"ParadeService.luau","total_count":1,"children":[{"name":"ParadeService:GetMultiplier()","total_count":1,"children":[]}]},{"name":"PlayerDataService.luau","total_count":15,"children":[{"name":"PlayerDataService:AddCurrency()","total_count":1,"children":[]},{"name":"PlayerDataService:GetCurrency()","total_count":1,"children":[]},{"name":"PlayerDataService:GetData()","total_count":1,"children":[]},{"name":"PlayerDataService:GetExpeditions()","total_count":1,"children":[]},{"name":"PlayerDataService:GetStatsSnapshot()","total_count":1,"children":[]},{"name":"PlayerDataService:IsReady()","total_count":1,"children":[]},{"name":"PlayerDataService:OnInit()","total_count":1,"children":[]},{"name":"PlayerDataService:OnStart()","total_count":1,"children":[]},{"name":"PlayerDataService:SpendCurrency()","total_count":1,"children":[]},{"name":"PlayerDataService:UpdateData()","total_count":1,"children":[]},{"name":"publishChange()","total_count":1,"children":[]},{"name":"ready()","total_count":1,"children":[]},{"name":"syncCurrencies()","total_count":1,"children":[]},{"name":"unloadPlayer()","total_count":1,"children":[]},{"name":"validCurrency()","total_count":1,"children":[]}]},{"name":"PrestigeService.luau","total_count":5,"children":[{"name":"handlePrestigeRequest()","total_count":1,"children":[]},{"name":"PrestigeService.calculateYarnReward()","total_count":1,"children":[]},{"name":"PrestigeService:GetPrestigeMultiplier()","total_count":1,"children":[]},{"name":"PrestigeService:OnInit()","total_count":1,"children":[]},{"name":"PrestigeService:OnStart()","total_count":1,"children":[]}]},{"name":"TutorialService.luau","total_count":1,"children":[{"name":"TutorialService:OnInit()","total_count":1,"children":[]}]},{"name":"TycoonService.luau","total_count":19,"children":[{"name":"allocatePlotIndex()","total_count":1,"children":[]},{"name":"createAll12PlotShells()","total_count":1,"children":[]},{"name":"createPurchasePad()","total_count":1,"children":[]},{"name":"createWorkerPodium()","total_count":1,"children":[]},{"name":"getOrCreatePlotsFolder()","total_count":1,"children":[]},{"name":"getPlotOrigin()","total_count":1,"children":[]},{"name":"releasePlotIndex()","total_count":1,"children":[]},{"name":"spawnCatCafe()","total_count":1,"children":[]},{"name":"spawnCatModel()","total_count":1,"children":[]},{"name":"spawnCatnipGreenhouse()","total_count":1,"children":[]},{"name":"spawnLaserArena()","total_count":1,"children":[]},{"name":"spawnPlotForPlayer()","total_count":1,"children":[]},{"name":"spawnScratchingPost()","total_count":1,"children":[]},{"name":"spawnStarterStation()","total_count":1,"children":[]},{"name":"TycoonService:GetAdoptionPosition()","total_count":1,"children":[]},{"name":"TycoonService:OnInit()","total_count":1,"children":[]},{"name":"TycoonService:OnStart()","total_count":1,"children":[]},{"name":"TycoonService:ResetPlot()","total_count":1,"children":[]},{"name":"updateStationWorkerVisual()","total_count":1,"children":[]}]},{"name":"WorldService.luau","total_count":6,"children":[{"name":"buildRealmEnvironments()","total_count":1,"children":[]},{"name":"spawnCentralPortalMonument()","total_count":1,"children":[]},{"name":"WorldService:GetWorldMultiplier()","total_count":1,"children":[]},{"name":"WorldService:OnInit()","total_count":1,"children":[]},{"name":"WorldService:OnStart()","total_count":1,"children":[]},{"name":"WorldService:TravelPlayerToWorld()","total_count":1,"children":[]}]}]}]},{"name":"shared","total_count":61,"children":[{"name":"AssetRegistry.luau","total_count":3,"children":[{"name":"AssetRegistry.get()","total_count":1,"children":[]},{"name":"AssetRegistry.getAll()","total_count":1,"children":[]},{"name":"AssetRegistry.getAssetId()","total_count":1,"children":[]}]},{"name":"BattleDefinitions.luau","total_count":2,"children":[{"name":"BattleDefinitions.effectiveness()","total_count":1,"children":[]},{"name":"BattleDefinitions.moves()","total_count":1,"children":[]}]},{"name":"CatArtDefinitions.luau","total_count":2,"children":[{"name":"CatArtDefinitions.get()","total_count":1,"children":[]},{"name":"palette()","total_count":1,"children":[]}]},{"name":"CatDefinitions.luau","total_count":3,"children":[{"name":"CatDefinitions.get()","total_count":1,"children":[]},{"name":"CatDefinitions.getAll()","total_count":1,"children":[]},{"name":"CatDefinitions.getByRarity()","total_count":1,"children":[]}]},{"name":"CatModelFactory.luau","total_count":4,"children":[{"name":"buildStylizedProceduralCat()","total_count":1,"children":[]},{"name":"CatModelFactory.createCatModel()","total_count":1,"children":[]},{"name":"CatModelFactory.createLegacyCatModel()","total_count":1,"children":[]},{"name":"findCustomBlenderMesh()","total_count":1,"children":[]}]},{"name":"CatPreview.luau","total_count":1,"children":[{"name":"CatPreview.create()","total_count":1,"children":[]}]},{"name":"CatUtil.luau","total_count":5,"children":[{"name":"CatUtil.calculateWorkerMultiplier()","total_count":1,"children":[]},{"name":"CatUtil.calculateYield()","total_count":1,"children":[]},{"name":"CatUtil.canMerge()","total_count":1,"children":[]},{"name":"CatUtil.getRarityColor()","total_count":1,"children":[]},{"name":"CatUtil.rollRandomCatId()","total_count":1,"children":[]}]},{"name":"CleanCatBuilder.luau","total_count":2,"children":[{"name":"part()","total_count":1,"children":[]},{"name":"segment()","total_count":1,"children":[]}]},{"name":"EconomyDefinitions.luau","total_count":2,"children":[{"name":"EconomyDefinitions.calculateYarnReward()","total_count":1,"children":[]},{"name":"EconomyDefinitions.getPrestigeMultiplier()","total_count":1,"children":[]}]},{"name":"NetworkUtil.luau","total_count":3,"children":[{"name":"getOrCreateFolder()","total_count":1,"children":[]},{"name":"NetworkUtil.getRemoteEvent()","total_count":1,"children":[]},{"name":"NetworkUtil.getRemoteFunction()","total_count":1,"children":[]}]},{"name":"OasisPropBuilder.luau","total_count":3,"children":[{"name":"OasisPropBuilder.createAdoptionEgg()","total_count":1,"children":[]},{"name":"OasisPropBuilder.createPalm()","total_count":1,"children":[]},{"name":"OasisPropBuilder.decorateEgg()","total_count":1,"children":[]}]},{"name":"PresentationState.luau","total_count":2,"children":[{"name":"PresentationState.sameInventory()","total_count":1,"children":[]},{"name":"PresentationState.samePet()","total_count":1,"children":[]}]},{"name":"ProductionUtil.luau","total_count":1,"children":[{"name":"ProductionUtil.calculateRate()","total_count":1,"children":[]}]},{"name":"SanctuaryAssetBuilder.luau","total_count":1,"children":[{"name":"SanctuaryAssetBuilder.createStation()","total_count":1,"children":[]}]},{"name":"SceneArtStyle.luau","total_count":2,"children":[{"name":"crest()","total_count":1,"children":[]},{"name":"SceneArtStyle.apply()","total_count":1,"children":[]}]},{"name":"Signal.luau","total_count":6,"children":[{"name":"SignalClass.new()","total_count":1,"children":[]},{"name":"SignalClass:Connect()","total_count":1,"children":[]},{"name":"SignalClass:Destroy()","total_count":1,"children":[]},{"name":"SignalClass:Fire()","total_count":1,"children":[]},{"name":"SignalClass:Once()","total_count":1,"children":[]},{"name":"SignalClass:Wait()","total_count":1,"children":[]}]},{"name":"TurnBattle.luau","total_count":6,"children":[{"name":"copyTeam()","total_count":1,"children":[]},{"name":"exhausted()","total_count":1,"children":[]},{"name":"firstAlive()","total_count":1,"children":[]},{"name":"perform()","total_count":1,"children":[]},{"name":"TurnBattle.new()","total_count":1,"children":[]},{"name":"TurnBattle.step()","total_count":1,"children":[]}]},{"name":"TutorialProgress.luau","total_count":1,"children":[{"name":"TutorialProgress.advance()","total_count":1,"children":[]}]},{"name":"Types.luau","total_count":2,"children":[{"name":"Types.createDefaultPlayerData()","total_count":1,"children":[]},{"name":"Types.reconcilePlayerData()","total_count":1,"children":[]}]},{"name":"UITheme.luau","total_count":5,"children":[{"name":"UITheme.bindModal()","total_count":1,"children":[]},{"name":"UITheme.bindNavigation()","total_count":1,"children":[]},{"name":"UITheme.bindViewport()","total_count":1,"children":[]},{"name":"UITheme.styleButton()","total_count":1,"children":[]},{"name":"UITheme.stylePanel()","total_count":1,"children":[]}]},{"name":"WorldDefinitions.luau","total_count":3,"children":[{"name":"WorldDefinitions.get()","total_count":1,"children":[]},{"name":"WorldDefinitions.getAll()","total_count":1,"children":[]},{"name":"WorldDefinitions.getOrder()","total_count":1,"children":[]}]},{"name":"CombatUtil.luau","total_count":1,"children":[]},{"name":"RealmLayout.luau","total_count":1,"children":[]}]}]};
+
+    function transformData(jsonData) {
+        // Helper function to recursively build the children structure
+        function processNode(node, parentL1StageName) {
+            let displayName = node.name;
+            // Append total_count if it exists and is not already in the name
+            if (node.total_count !== undefined) {
+                if (!/\(Total Count: \d+\)$/.test(displayName)) {
+                    displayName += ` (Total Count: ${node.total_count})`;
+                }
+            }
+
+            const newNode = { name: displayName };
+
+            if (parentL1StageName === "Root") {
+                 newNode.originalStageName = node.name;
+            } else {
+                newNode.originalStageName = parentL1StageName;
+            }
+
+            if (node.children && node.children.length > 0) {
+                const stageNameToPass = (parentL1StageName === "Root") ? node.name : parentL1StageName;
+                newNode.children = node.children.map(child => processNode(child, stageNameToPass));
+            }
+
+            return newNode;
+        }
+
+        let rootDisplayName = jsonData.name;
+        if (jsonData.total_count !== undefined && !/\(Total Count: \d+\)$/.test(rootDisplayName)) {
+            rootDisplayName += ` (Total Count: ${jsonData.total_count})`;
+        }
+
+        return {
+            name: rootDisplayName,
+            originalStageName: "Root",
+            children: (jsonData.children || []).map(child => processNode(child, "Root"))
+        };
+    }
+
+    const treeData = transformData(initialJsonData);
+
+    // Auto-populated phaseColors: every depth-1 child of the root gets
+    // a stable colour from a bigger palette so all top-level dirs are
+    // distinguishable.
+    const PALETTE = [
+      ["#3498DB","#2980B9","#AED6F1"], ["#2ECC71","#27AE60","#A9DFBF"],
+      ["#E74C3C","#C0392B","#F5B7B1"], ["#9B59B6","#8E44AD","#D7BDE2"],
+      ["#F39C12","#D68910","#FAD7A0"], ["#1ABC9C","#117864","#A2D9CE"],
+      ["#34495E","#1B2631","#ABB2B9"], ["#E67E22","#BA4A00","#F5CBA7"],
+      ["#16A085","#0E6655","#A2D9CE"], ["#D35400","#A04000","#EDBB99"],
+      ["#7F8C8D","#566573","#D5DBDB"], ["#C0392B","#7B241C","#F5B7B1"],
+      ["#2E86C1","#1B4F72","#A9CCE3"], ["#28B463","#196F3D","#A9DFBF"],
+      ["#AF7AC5","#6C3483","#D2B4DE"],
+    ];
+    const phaseColors = { "Root": { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+                          "Default": { fill: "#BDC3C7", stroke: "#95A5A6", collapsedFill: "#ECF0F1" } };
+    (initialJsonData.children || []).forEach((c, i) => {
+      const pal = PALETTE[i % PALETTE.length];
+      phaseColors[c.name] = { fill: pal[0], stroke: pal[1], collapsedFill: pal[2] };
+    });
+
+    const levelSpecificPalettes = {
+      0: { fill: "#4A4A4A", stroke: "#333333", collapsedFill: "#6C757D" },
+      2: { fill: "#6ab04c", stroke: "#508a38", collapsedFill: "#a3d391" },
+      3: { fill: "#f0932b", stroke: "#d0730f", collapsedFill: "#f6c07e" },
+      4: { fill: "#be2edd", stroke: "#a01cb3", collapsedFill: "#e08bf2" },
+      5: { fill: "#00a8ff", stroke: "#007ac1", collapsedFill: "#74d2ff" },
+      6: { fill: "#e55039", stroke: "#c23620", collapsedFill: "#f09a8d" },
+      default: { fill: "#747d8c", stroke: "#57606f", collapsedFill: "#a4b0be" }
+    };
+
+    const svgElement = d3.select("#tree-svg");
+    const initialSvgWidth = +svgElement.attr("width");
+    const initialSvgHeight = +svgElement.attr("height");
+    const margin = { top: 40, right: 120, bottom: 80, left: 450 };
+    let width = initialSvgWidth - margin.left - margin.right;
+    let height = initialSvgHeight - margin.top - margin.bottom;
+    const duration = 500;
+    let nodeCounter = 0;
+    const g = svgElement.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    const treemap = d3.tree().nodeSize([40, 0]);
+    let rootNode = d3.hierarchy(treeData, d => d.children);
+    rootNode.x0 = 0;
+    rootNode.y0 = 0;
+
+    if (rootNode.children) {
+      rootNode.children.forEach(d_child => {
+        if (d_child.children) { collapseBranch(d_child); }
+      });
+    }
+    updateTree(rootNode);
+
+    function collapseBranch(d) { if (d.children) { d._children = d.children; d._children.forEach(collapseBranch); d.children = null; } }
+    function expandBranch(d) { if (d._children) { d.children = d._children; d._children = null; } if (d.children) { d.children.forEach(expandBranch); } }
+    window.expandAll = () => { expandBranch(rootNode); updateTree(rootNode); };
+    window.collapseAll = () => { if (rootNode.children) { rootNode.children.forEach(collapseBranch); } updateTree(rootNode); };
+    window.resetView = () => { if (rootNode.children) { rootNode.children.forEach(d_child => { if (d_child.children || d_child._children) { collapseBranch(d_child); } }); } if (rootNode._children && !rootNode.children) { rootNode.children = rootNode._children; rootNode._children = null; } updateTree(rootNode); };
+
+    function updateTree(source) {
+      const treeLayoutData = treemap(rootNode);
+      let nodes = treeLayoutData.descendants();
+      let links = treeLayoutData.descendants().slice(1);
+
+      let minX = 0;
+      let maxX = 0;
+      if (nodes.length > 0) {
+        minX = d3.min(nodes, d => d.x);
+        maxX = d3.max(nodes, d => d.x);
+      }
+
+      let neededHeight = Math.max(initialSvgHeight, maxX - minX + margin.top + margin.bottom + 100);
+      svgElement.transition().duration(duration / 2).attr("height", neededHeight);
+      g.transition().duration(duration / 2).attr("transform", `translate(${margin.left},${margin.top - minX + 40})`);
+
+      nodes.forEach(d => { d.y = d.depth * 400; }); // Adjust horizontal separation if needed
+
+      const node = g.selectAll('g.node').data(nodes, d => d.id || (d.id = ++nodeCounter));
+      const nodeEnter = node.enter().append('g')
+        .attr('class', d => "node" + (d.children || d._children ? " node--internal" : " node--leaf") + (d._children ? " _children" : ""))
+        .attr('transform', d => `translate(${source.y0},${source.x0})`)
+        .on('click', (event, d) => { if (d.children) { d._children = d.children; d.children = null; } else if (d._children) { d.children = d._children; d._children = null; } updateTree(d); })
+        .style('cursor', d => (d.children || d._children) ? 'pointer' : 'default');
+
+      nodeEnter.append('circle').attr('r', 1e-6);
+
+      nodeEnter.append('text')
+        .attr('dy', '.35em')
+        .attr('x', d => d.children || d._children ? -14 : 14)
+        .attr('text-anchor', d => d.children || d._children ? 'end' : 'start')
+        .style("fill-opacity", 1e-6)
+        .call(wrapText, 380);
+
+      const nodeUpdate = nodeEnter.merge(node);
+      nodeUpdate.transition().duration(duration)
+        .attr('transform', d => `translate(${d.y},${d.x})`)
+        .attr('class', d => "node" + (d.children ? " node--internal" : " node--leaf") + (d._children ? " node--internal _children" : ""));
+
+      nodeUpdate.select('circle').attr('r', 8.5)
+        .style('fill', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            if (d._children) return palette.collapsedFill;
+            if (d.children) return palette.fill;
+            return "#fff";
+        })
+        .style('stroke', d => {
+            let palette;
+            if (d.depth === 0) {
+                palette = levelSpecificPalettes[0];
+            } else if (d.depth === 1) {
+                palette = phaseColors[d.data.originalStageName] || phaseColors.Default;
+            } else {
+                palette = levelSpecificPalettes[d.depth] || levelSpecificPalettes.default;
+            }
+            return palette.stroke;
+        });
+      nodeUpdate.select('text').style("fill-opacity", 1).call(wrapText, 380);
+
+      const nodeExit = node.exit().transition().duration(duration).attr('transform', d => `translate(${source.y},${source.x})`).remove();
+      nodeExit.select('circle').attr('r', 1e-6);
+      nodeExit.select('text').style('fill-opacity', 1e-6);
+
+      const link = g.selectAll('path.link').data(links, d => d.id);
+      const linkEnter = link.enter().insert('path', "g").attr('class', 'link').attr('d', d => { const o = { x: source.x0, y: source.y0 }; return diagonal(o, o); });
+
+      linkEnter.merge(link).transition().duration(duration).attr('d', d => diagonal(d, d.parent))
+        .style('stroke', d => {
+            const sourceNode = d.parent;
+            if (!sourceNode) return phaseColors.Default.stroke;
+            const l1AncestorName = sourceNode.data.originalStageName;
+            const colorPalette = phaseColors[l1AncestorName] || phaseColors.Default;
+            return colorPalette.stroke;
+        });
+      link.exit().transition().duration(duration).attr('d', d => { const o = { x: source.x, y: source.y }; return diagonal(o, o); }).remove();
+      nodes.forEach(d => { d.x0 = d.x; d.y0 = d.y; });
+    }
+
+    function diagonal(s, d) { return `M ${s.y} ${s.x} C ${(s.y + d.y) / 2} ${s.x}, ${(s.y + d.y) / 2} ${d.x}, ${d.y} ${d.x}`; }
+
+    function wrapText(textElements, maxWidth) {
+        const textPartColors = {
+            name: '#343a40',
+            count: '#0056b3'
+        };
+        const countRegex = /(\s\(Total Count: \d+\))$/;
+
+        textElements.each(function () {
+            const textD3 = d3.select(this);
+            const originalNodeText = textD3.datum().data.name;
+            const x = parseFloat(textD3.attr("x") || 0);
+            const initialDy = textD3.attr("dy");
+            const textAnchor = textD3.attr("text-anchor");
+            const lineHeight = 1.1;
+
+            textD3.text(null);
+
+            let namePart = originalNodeText;
+            let countPartText = "";
+
+            const countMatch = originalNodeText.match(countRegex);
+            if (countMatch && originalNodeText.endsWith(countMatch[0])) {
+                namePart = originalNodeText.substring(0, originalNodeText.length - countMatch[0].length).trim();
+                countPartText = countMatch[0].trim();
+            }
+
+            const tokens = [];
+            namePart.split(/\s+/).filter(Boolean).forEach(word => {
+                tokens.push({ text: word, type: 'name' });
+            });
+            if (countPartText) {
+                tokens.push({ text: countPartText, type: 'count' });
+            }
+
+            if (tokens.length === 0 && originalNodeText) {
+                tokens.push({ text: originalNodeText, type: 'name' });
+            }
+
+            let currentTspan = textD3.append("tspan").attr("x", x).attr("dy", initialDy);
+            if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+
+            let lineTokens = [];
+
+            for (let i = 0; i < tokens.length; i++) {
+                const tokenObj = tokens[i];
+
+                lineTokens.push(tokenObj);
+                currentTspan.text(lineTokens.map(t => t.text).join(" "));
+
+                if (currentTspan.node().getComputedTextLength() > maxWidth && lineTokens.length > 1) {
+                    lineTokens.pop();
+
+                    currentTspan.text(null);
+                    lineTokens.forEach((prevToken, idx) => {
+                        currentTspan.append("tspan")
+                            .text((idx > 0 ? " " : "") + prevToken.text)
+                            .style("fill", textPartColors[prevToken.type] || textPartColors.name)
+                            .style("font-weight", prevToken.type === 'count' ? "bold" : "normal");
+                    });
+
+                    lineTokens = [tokenObj];
+                    currentTspan = textD3.append("tspan").attr("x", x).attr("dy", lineHeight + "em");
+                    if (textAnchor === "end") currentTspan.attr("text-anchor", "end");
+                }
+            }
+
+            currentTspan.text(null);
+            lineTokens.forEach((token, idx) => {
+                currentTspan.append("tspan")
+                    .text((idx > 0 ? " " : "") + token.text)
+                    .style("fill", textPartColors[token.type] || textPartColors.name)
+                    .style("font-weight", token.type === 'count' ? "bold" : "normal");
+            });
+
+            if (textD3.selectAll("tspan > tspan").empty() && textD3.select("tspan").text().length === 0 && originalNodeText) {
+                let t = textD3.select("tspan");
+                let displayText = originalNodeText;
+                t.text(displayText).style("fill", textPartColors.name);
+                if (t.node() && t.node().getComputedTextLength() > maxWidth && displayText.length > 20) {
+                    let estimatedChars = Math.floor(maxWidth / (t.node().getComputedTextLength()/displayText.length) );
+                    displayText = displayText.substring(0, Math.max(0, estimatedChars - 3)) + "...";
+                    t.text(displayText);
+                }
+            }
+        });
+    }
+  </script>
+</body>
+</html>
